@@ -42,12 +42,15 @@ button[data-testid="stSidebarCollapseButton"] { display: none !important; }
 [data-testid="collapsedControl"] { display: none !important; }
 .stSidebar button[kind="header"] { display: none !important; }
 
-/* ── Main content area ── */
+/* ── Main content area — kill ALL top space ── */
 .main .block-container {
-    padding-top: 0.5rem !important;
+    padding-top: 0 !important;
     padding-bottom: 2rem !important;
     max-width: 1100px !important;
 }
+.main .block-container > div:first-child { margin-top: 0 !important; padding-top: 0 !important; }
+.stApp > header { height: 0 !important; min-height: 0 !important; }
+div[data-testid="stAppViewBlockContainer"] { padding-top: 1rem !important; }
 
 /* ── Force sidebar open ── */
 [data-testid="stSidebar"] { min-width: 280px !important; width: 280px !important; }
@@ -82,10 +85,16 @@ div[data-testid="stSidebar"] .stButton > button:hover {
     background: rgba(255,255,255,0.15) !important;
     color: #FFFFFF !important;
 }
-div[data-testid="stSidebar"] .stButton > button[kind="primary"] {
+/* ── Active nav — YELLOW — max specificity ── */
+div[data-testid="stSidebar"] .stButton > button[kind="primary"],
+div[data-testid="stSidebar"] .stButton > button[data-testid="stBaseButton-primary"],
+section[data-testid="stSidebar"] button[kind="primary"],
+section[data-testid="stSidebar"] button[data-testid="stBaseButton-primary"] {
     background: #FBBC05 !important;
+    background-color: #FBBC05 !important;
     color: #202124 !important;
     font-weight: 700 !important;
+    border: none !important;
 }
 
 /* ── Google-style metric cards ── */
