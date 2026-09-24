@@ -181,7 +181,8 @@ survey_engine = MiniSearch(SURVEY, field="searchable_text") if SURVEY else None
 # ─────────────────────────────────────────────
 GROQ_MODELS = [
     "llama-3.3-70b-versatile",
-    "llama-3.1-8b-instant",
+    "meta-llama/llama-4-scout-17b-16e-instruct",
+    "qwen/qwen3-32b",
 ]
 
 def call_groq(system_prompt, user_msg, api_key):
