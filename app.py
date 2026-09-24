@@ -36,21 +36,36 @@ h1, h2, h3, h4 { font-family: 'Inter', 'Google Sans', sans-serif !important; }
 [data-testid="stToolbar"] { display: none !important; }
 #MainMenu { display: none !important; }
 footer { display: none !important; }
-header[data-testid="stHeader"] { display: none !important; }
+header { display: none !important; }
+header[data-testid="stHeader"] { display: none !important; height: 0 !important; }
+
+/* ── Hide sidebar collapse arrow ── */
 button[data-testid="stSidebarCollapseButton"] { display: none !important; }
 [data-testid="stSidebarCollapse"] { display: none !important; }
 [data-testid="collapsedControl"] { display: none !important; }
 .stSidebar button[kind="header"] { display: none !important; }
+[data-testid="stSidebarNav"] { display: none !important; }
+button[kind="headerNoPadding"] { display: none !important; }
+div[data-testid="stSidebarCollapseButton"] { display: none !important; }
+.st-emotion-cache-iiif1v { display: none !important; }
+[data-testid="stSidebar"] button[aria-label="Close sidebar"],
+[data-testid="stSidebar"] button[aria-label="Collapse sidebar"],
+[data-testid="stSidebar"] > div > div > div > button:first-child {
+    display: none !important;
+}
 
-/* ── Main content area — kill ALL top space ── */
+/* ── Main content area — ZERO top space ── */
 .main .block-container {
     padding-top: 0 !important;
+    margin-top: 0 !important;
     padding-bottom: 2rem !important;
     max-width: 1100px !important;
 }
-.main .block-container > div:first-child { margin-top: 0 !important; padding-top: 0 !important; }
-.stApp > header { height: 0 !important; min-height: 0 !important; }
-div[data-testid="stAppViewBlockContainer"] { padding-top: 1rem !important; }
+.stApp > header { height: 0 !important; min-height: 0 !important; padding: 0 !important; }
+div[data-testid="stAppViewBlockContainer"] { padding-top: 0.5rem !important; }
+.stApp { margin-top: 0 !important; }
+.main { margin-top: 0 !important; padding-top: 0 !important; }
+section.main > div { padding-top: 0 !important; margin-top: 0 !important; }
 
 /* ── Force sidebar open ── */
 [data-testid="stSidebar"] { min-width: 280px !important; width: 280px !important; }
@@ -495,7 +510,7 @@ if "page" not in st.session_state:
 with st.sidebar:
     st.markdown(
         '<div style="padding:4px 0 0 0;">'
-        '<h2 style="margin:0;font-size:1.4rem;font-weight:700;letter-spacing:-0.02em;">Discovery Engine</h2>'
+        '<h2 style="margin:0;font-size:1.4rem;font-weight:700;letter-spacing:-0.02em;">🔍 Discovery Engine</h2>'
         '<p style="font-size:0.78rem;opacity:0.8;margin:2px 0 0 0;font-weight:400;">'
         'AI Powered · Google Photos · Photo Retrieval Research</p>'
         '</div>',
