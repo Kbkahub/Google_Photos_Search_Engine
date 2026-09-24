@@ -22,104 +22,233 @@ st.set_page_config(
 )
 
 # ─────────────────────────────────────────────
-# 1. CSS / THEME
+# 1. CSS / THEME  —  Google-inspired minimal
 # ─────────────────────────────────────────────
 st.markdown("""
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap');
+
+/* ── Reset & base ── */
+html, body, [class*="css"] { font-family: 'Inter', 'Google Sans', sans-serif !important; }
+h1, h2, h3, h4 { font-family: 'Inter', 'Google Sans', sans-serif !important; }
+
 /* ── Hide Streamlit chrome ── */
 [data-testid="stToolbar"] { display: none !important; }
 #MainMenu { display: none !important; }
 footer { display: none !important; }
+header[data-testid="stHeader"] { display: none !important; }
 button[data-testid="stSidebarCollapseButton"] { display: none !important; }
 [data-testid="stSidebarCollapse"] { display: none !important; }
 [data-testid="collapsedControl"] { display: none !important; }
 .stSidebar button[kind="header"] { display: none !important; }
 
+/* ── Main content area ── */
+.main .block-container {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+    max-width: 1100px !important;
+}
+
 /* ── Force sidebar open ── */
-[data-testid="stSidebar"] { min-width: 300px !important; width: 300px !important; }
+[data-testid="stSidebar"] { min-width: 280px !important; width: 280px !important; }
 [data-testid="stSidebar"][aria-expanded="false"] {
-    min-width: 300px !important; width: 300px !important;
+    min-width: 280px !important; width: 280px !important;
     transform: none !important; display: block !important;
 }
 
-/* ── Sidebar colour (Google Blue) ── */
-div[data-testid="stSidebar"] { background: #1A73E8 !important; }
+/* ── Sidebar ── */
+div[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #1A73E8 0%, #1557B0 100%) !important;
+}
 div[data-testid="stSidebar"] * { color: #FFFFFF !important; }
+div[data-testid="stSidebar"] hr { border-color: rgba(255,255,255,0.2) !important; }
 
 /* ── Nav buttons ── */
 div[data-testid="stSidebar"] .stButton > button {
     background: transparent !important;
-    color: #FFFFFF !important;
-    border: 1px solid transparent !important;
-    border-radius: 8px !important;
-    font-weight: 700 !important;
-    font-size: 12px !important;
-    letter-spacing: 0.05em !important;
+    color: rgba(255,255,255,0.9) !important;
+    border: none !important;
+    border-radius: 24px !important;
+    font-weight: 500 !important;
+    font-size: 0.78rem !important;
+    letter-spacing: 0.03em !important;
     text-transform: uppercase !important;
     text-align: left !important;
-    padding: 10px 16px !important;
+    padding: 10px 20px !important;
+    transition: background 0.2s !important;
 }
 div[data-testid="stSidebar"] .stButton > button:hover {
     background: rgba(255,255,255,0.15) !important;
+    color: #FFFFFF !important;
 }
+div[data-testid="stSidebar"] .stButton > button[kind="primary"] {
+    background: rgba(255,255,255,0.2) !important;
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+}
+
+/* ── Google-style metric cards ── */
+.g-card {
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 20px 24px;
+    box-shadow: 0 1px 2px rgba(60,64,67,0.3), 0 1px 3px rgba(60,64,67,0.15);
+    text-align: center;
+    transition: box-shadow 0.2s;
+}
+.g-card:hover { box-shadow: 0 1px 3px rgba(60,64,67,0.4), 0 4px 8px rgba(60,64,67,0.15); }
+.g-card .g-num { font-size: 2.2rem; font-weight: 700; margin: 0; line-height: 1.2; }
+.g-card .g-label { color: #5F6368; font-size: 0.8rem; font-weight: 500; margin-top: 4px; }
+
+/* ── Platform box cards ── */
+.plat-card {
+    background: #FFFFFF;
+    border-radius: 10px;
+    padding: 16px 20px;
+    box-shadow: 0 1px 2px rgba(60,64,67,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+.plat-card .plat-name { font-size: 0.9rem; font-weight: 600; color: #202124; }
+.plat-card .plat-count { font-size: 1.4rem; font-weight: 700; color: #1A73E8; }
+.plat-card .plat-bar {
+    height: 3px; background: #E8EAED; border-radius: 2px;
+    width: 100%; margin-top: 8px;
+}
+.plat-card .plat-bar-fill { height: 3px; border-radius: 2px; }
 
 /* ── AI answer box ── */
 .ai-answer {
-    background: #E8F0FE; border: 1px solid #C2D7F2;
-    border-left: 4px solid #1A73E8;
-    border-radius: 10px; padding: 20px; margin-bottom: 20px;
+    background: #FFFFFF;
+    border: 1px solid #DADCE0;
+    border-left: 4px solid #4285F4;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 2px rgba(60,64,67,0.1);
 }
-
-/* ── Card style ── */
-.metric-card {
-    background: #FFFFFF; border-radius: 12px;
-    padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    text-align: center; border: 1px solid #E0E0E0;
-}
-.metric-card h2 { color: #1A73E8; font-size: 2rem; margin: 0; }
-.metric-card p { color: #5F6368; font-size: 0.85rem; margin: 4px 0 0 0; }
+.ai-answer b { color: #4285F4; }
 
 /* ── Review card ── */
 .review-card {
-    background: #FFFFFF; border-radius: 10px; padding: 16px 20px;
-    margin-bottom: 12px; border: 1px solid #E0E0E0;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    background: #FFFFFF;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 10px;
+    border: 1px solid #DADCE0;
+    transition: box-shadow 0.15s;
 }
+.review-card:hover { box-shadow: 0 1px 3px rgba(60,64,67,0.2); }
 .review-card .platform-tag {
     display: inline-block; background: #E8F0FE; color: #1A73E8;
-    font-size: 0.72rem; padding: 2px 8px; border-radius: 4px;
+    font-size: 0.7rem; padding: 3px 10px; border-radius: 12px;
     font-weight: 600; margin-right: 6px;
 }
 .review-card .theme-tag {
     display: inline-block; background: #F1F3F4; color: #5F6368;
-    font-size: 0.7rem; padding: 2px 6px; border-radius: 4px;
-    margin-right: 4px;
+    font-size: 0.68rem; padding: 2px 8px; border-radius: 12px;
+    margin-right: 4px; font-weight: 500;
 }
-.review-card .sentiment-pos { color: #34A853; font-weight: 600; }
-.review-card .sentiment-neg { color: #EA4335; font-weight: 600; }
-.review-card .sentiment-mix { color: #FBBC04; font-weight: 600; }
+.review-card .review-text {
+    color: #3C4043; font-size: 0.9rem; line-height: 1.6;
+    margin: 10px 0 8px 0;
+}
+.review-card .review-meta { color: #9AA0A6; font-size: 0.75rem; }
+.sentiment-pos { color: #34A853; font-weight: 600; }
+.sentiment-neg { color: #EA4335; font-weight: 600; }
+.sentiment-mix { color: #F9AB00; font-weight: 600; }
 
-/* ── Section header ── */
+/* ── Section header — Google style thin line ── */
 .section-hdr {
-    font-size: 1.1rem; font-weight: 700; color: #202124;
-    margin-top: 28px; margin-bottom: 12px;
-    padding-bottom: 6px; border-bottom: 2px solid #1A73E8;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #202124;
+    margin-top: 36px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 3px solid #4285F4;
+    letter-spacing: -0.01em;
 }
 
 /* ── Opportunity card ── */
 .opp-card {
-    background: #FFFFFF; border-radius: 10px; padding: 20px;
-    margin-bottom: 16px; border: 1px solid #E0E0E0;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    background: #FFFFFF;
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 12px;
+    border: 1px solid #DADCE0;
+    box-shadow: 0 1px 2px rgba(60,64,67,0.1);
 }
-.opp-card h4 { color: #202124; margin: 0 0 6px 0; }
-.opp-card .score { color: #1A73E8; font-weight: 700; font-size: 1.3rem; }
+.opp-card h4 { color: #202124; margin: 0 0 6px 0; font-size: 1rem; font-weight: 600; }
+.opp-card .score { color: #4285F4; font-weight: 700; font-size: 1.4rem; }
 
-/* ── Progress bars ── */
-.stProgress > div > div > div { background: #1A73E8 !important; }
+/* ── Google-style progress bars ── */
+.stProgress > div > div > div { background: #4285F4 !important; border-radius: 4px !important; }
 
 /* ── Expander ── */
-div[data-testid="stExpander"] { border: 1px solid #E0E0E0; border-radius: 10px; }
+div[data-testid="stExpander"] {
+    border: 1px solid #DADCE0;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(60,64,67,0.1);
+}
+
+/* ── Inputs ── */
+.stTextInput > div > div > input {
+    border-radius: 24px !important;
+    border: 1px solid #DADCE0 !important;
+    padding: 10px 20px !important;
+    font-size: 0.9rem !important;
+    box-shadow: 0 1px 2px rgba(60,64,67,0.1) !important;
+}
+.stTextInput > div > div > input:focus {
+    border-color: #4285F4 !important;
+    box-shadow: 0 1px 6px rgba(66,133,244,0.3) !important;
+}
+
+/* ── Primary buttons ── */
+.stButton > button[kind="primary"] {
+    background: #4285F4 !important;
+    color: #FFFFFF !important;
+    border: none !important;
+    border-radius: 24px !important;
+    font-weight: 600 !important;
+    padding: 8px 24px !important;
+    font-size: 0.85rem !important;
+    box-shadow: 0 1px 2px rgba(60,64,67,0.3) !important;
+}
+.stButton > button[kind="primary"]:hover {
+    background: #3367D6 !important;
+    box-shadow: 0 1px 3px rgba(60,64,67,0.4) !important;
+}
+
+/* ── Selectbox ── */
+.stSelectbox > div > div { border-radius: 8px !important; }
+
+/* ── Multiselect ── */
+.stMultiSelect > div > div { border-radius: 8px !important; }
+
+/* ── Page title ── */
+.page-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #202124;
+    margin-bottom: 4px;
+    letter-spacing: -0.02em;
+}
+.page-subtitle {
+    font-size: 0.95rem;
+    color: #5F6368;
+    margin-bottom: 28px;
+    font-weight: 400;
+}
+
+/* ── Google 4-color accent bar ── */
+.g-accent {
+    display: flex; gap: 0; margin-bottom: 24px; border-radius: 4px; overflow: hidden; height: 4px;
+}
+.g-accent div { flex: 1; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -207,7 +336,7 @@ def call_groq(system_prompt, user_msg, api_key):
             method="POST",
         )
         try:
-            with urllib.request.urlopen(req, timeout=45) as resp:
+            with urllib.request.urlopen(req, timeout=60) as resp:
                 data = json.loads(resp.read().decode())
                 return data["choices"][0]["message"]["content"]
         except urllib.error.HTTPError as e:
@@ -250,6 +379,19 @@ Be specific. Reference respondent demographics when quoting."""
 # ─────────────────────────────────────────────
 # 5. HELPERS
 # ─────────────────────────────────────────────
+GOOGLE_COLORS = ["#4285F4", "#EA4335", "#FBBC05", "#34A853"]
+
+def google_accent_bar():
+    st.markdown(
+        '<div class="g-accent">'
+        '<div style="background:#4285F4;"></div>'
+        '<div style="background:#EA4335;"></div>'
+        '<div style="background:#FBBC05;"></div>'
+        '<div style="background:#34A853;"></div>'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+
 def get_api_key():
     try:
         return st.secrets["GROQ_API_KEY"]
@@ -267,13 +409,12 @@ def render_review_card(r):
     rating_str = f"⭐ {r['rating']}/5" if r.get("rating") else ""
     st.markdown(f"""
     <div class="review-card">
-        <div style="margin-bottom:8px;">
-            <span class="platform-tag">{r.get('platform','')}</span>
-            {themes_html}
-            <span class="{s_cls}" style="float:right;font-size:0.8rem;">{r.get('sentiment','').upper()} {rating_str}</span>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+            <div><span class="platform-tag">{r.get('platform','')}</span>{themes_html}</div>
+            <span class="{s_cls}" style="font-size:0.78rem;">{r.get('sentiment','').upper()} {rating_str}</span>
         </div>
-        <div style="color:#202124;font-size:0.92rem;line-height:1.5;">"{r.get('text','')}"</div>
-        <div style="color:#9AA0A6;font-size:0.75rem;margin-top:6px;">{r.get('date','')} · {r.get('user_segment','')}</div>
+        <div class="review-text">"{r.get('text','')}"</div>
+        <div class="review-meta">{r.get('date','')} · {r.get('user_segment','')}</div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -332,8 +473,8 @@ def compute_opportunity_areas():
 NAV_ITEMS = [
     ("dashboard", "DASHBOARD"),
     ("kpi_tree", "FOCUSED REVIEWS (KPI TREE)"),
-    ("public_reviews", "ASK INSIGHTS FROM PUBLIC REVIEWS"),
-    ("user_survey", "ASK INSIGHTS FROM USER SURVEY"),
+    ("public_reviews", "ASK INSIGHTS — PUBLIC REVIEWS"),
+    ("user_survey", "ASK INSIGHTS — USER SURVEY"),
     ("explorer", "REVIEW EXPLORER"),
     ("comparison", "COMPARISON MATRIX"),
 ]
@@ -342,10 +483,12 @@ if "page" not in st.session_state:
     st.session_state["page"] = "dashboard"
 
 with st.sidebar:
-    st.markdown("## 🔍 Discovery Engine")
     st.markdown(
-        "<p style='font-size:0.82rem;opacity:0.85;margin-top:-8px;'>"
-        "Google Photos · Photo Retrieval Research</p>",
+        '<div style="padding:4px 0 0 0;">'
+        '<h2 style="margin:0;font-size:1.4rem;font-weight:700;letter-spacing:-0.02em;">Discovery Engine</h2>'
+        '<p style="font-size:0.78rem;opacity:0.8;margin:2px 0 0 0;font-weight:400;">'
+        'AI Powered · Google Photos · Photo Retrieval Research</p>'
+        '</div>',
         unsafe_allow_html=True,
     )
     st.markdown("---")
@@ -361,49 +504,56 @@ with st.sidebar:
 
     st.markdown("---")
     platforms = set(r.get("platform") for r in REVIEWS)
-    st.markdown(f"**{len(REVIEWS)}** reviews collected")
-    st.markdown(f"**{len(SURVEY)}** survey responses")
-    st.markdown(f"**{len(platforms)}** platforms")
+    st.markdown(
+        f'<div style="font-size:0.8rem;opacity:0.85;line-height:1.8;">'
+        f'<b>{len(REVIEWS)}</b> reviews · <b>{len(SURVEY)}</b> survey responses · <b>{len(platforms)}</b> platforms'
+        f'</div>',
+        unsafe_allow_html=True,
+    )
 
 # ─────────────────────────────────────────────
 # 8. PAGE: DASHBOARD
 # ─────────────────────────────────────────────
 def page_dashboard():
-    st.markdown("# 📊 Dashboard")
-    st.markdown("Overview of the Google Photos photo-retrieval research corpus.")
+    st.markdown('<div class="page-title">Dashboard</div>', unsafe_allow_html=True)
+    st.markdown('<div class="page-subtitle">Overview of the Google Photos photo-retrieval research corpus</div>', unsafe_allow_html=True)
+    google_accent_bar()
 
     # ── Metrics row ──
-    c1, c2, c3, c4 = st.columns(4)
-    with c1:
-        st.markdown(
-            f'<div class="metric-card"><h2>{len(REVIEWS)}</h2><p>Public Reviews</p></div>',
-            unsafe_allow_html=True,
-        )
-    with c2:
-        st.markdown(
-            f'<div class="metric-card"><h2>{len(SURVEY)}</h2><p>Survey Responses</p></div>',
-            unsafe_allow_html=True,
-        )
-    with c3:
-        platforms = set(r.get("platform") for r in REVIEWS)
-        st.markdown(
-            f'<div class="metric-card"><h2>{len(platforms)}</h2><p>Platforms</p></div>',
-            unsafe_allow_html=True,
-        )
-    with c4:
-        opp = compute_opportunity_areas()
-        st.markdown(
-            f'<div class="metric-card"><h2>{len(opp)}</h2><p>Opportunity Areas</p></div>',
-            unsafe_allow_html=True,
-        )
+    colors = GOOGLE_COLORS
+    metrics = [
+        (len(REVIEWS), "Public Reviews", colors[0]),
+        (len(SURVEY), "Survey Responses", colors[1]),
+        (len(set(r.get("platform") for r in REVIEWS)), "Platforms", colors[2]),
+        (len(compute_opportunity_areas()), "Opportunity Areas", colors[3]),
+    ]
+    cols = st.columns(4, gap="medium")
+    for i, (num, label, color) in enumerate(metrics):
+        with cols[i]:
+            st.markdown(
+                f'<div class="g-card">'
+                f'<div class="g-num" style="color:{color};">{num}</div>'
+                f'<div class="g-label">{label}</div>'
+                f'</div>',
+                unsafe_allow_html=True,
+            )
 
     # ── Reviews by Platform ──
     st.markdown('<div class="section-hdr">Reviews by Platform</div>', unsafe_allow_html=True)
     plat_counts = Counter(r.get("platform", "Unknown") for r in REVIEWS)
-    for plat, cnt in plat_counts.most_common():
-        pct = cnt / len(REVIEWS)
-        st.markdown(f"**{plat}** — {cnt} reviews")
-        st.progress(pct)
+    plat_colors = ["#4285F4", "#EA4335", "#FBBC05", "#34A853", "#8E24AA", "#00ACC1", "#FF7043"]
+    for idx, (plat, cnt) in enumerate(plat_counts.most_common()):
+        pct = cnt / len(REVIEWS) * 100
+        bar_color = plat_colors[idx % len(plat_colors)]
+        st.markdown(f"""
+        <div class="plat-card">
+            <div style="flex:1;">
+                <div class="plat-name">{plat}</div>
+                <div class="plat-bar"><div class="plat-bar-fill" style="width:{pct}%;background:{bar_color};"></div></div>
+            </div>
+            <div class="plat-count">{cnt}</div>
+        </div>
+        """, unsafe_allow_html=True)
 
     # ── Affinity Mapping ──
     st.markdown('<div class="section-hdr">Affinity Mapping</div>', unsafe_allow_html=True)
@@ -424,14 +574,11 @@ Each review was manually read and tagged with 1–3 themes from a taxonomy that 
 - **location_search** — Location-based search gaps, missing GPS, no indoor location inference
 - **organization_friction** — Albums, folders, archiving, tagging, manual effort
 
-**Coding rules:** Each review gets 1–3 themes. Sentiment is tagged as positive/negative/mixed/neutral. User segment is inferred from context (e.g., mentions of children → "family organizer", mentions of camera gear → "photographer").
+**Coding rules:** Each review gets 1–3 themes. Sentiment is tagged as positive/negative/mixed/neutral. User segment is inferred from context.
         """)
 
     # ── Opportunity Areas ──
-    st.markdown(
-        '<div class="section-hdr">Opportunity Areas Ranked by Impact</div>',
-        unsafe_allow_html=True,
-    )
+    st.markdown('<div class="section-hdr">Opportunity Areas Ranked by Impact</div>', unsafe_allow_html=True)
     for area in compute_opportunity_areas():
         plat_str = ", ".join(f"{p}: {c}" for p, c in sorted(area["platforms"].items(), key=lambda x: -x[1]))
         st.markdown(f"""
@@ -440,7 +587,7 @@ Each review was manually read and tagged with 1–3 themes from a taxonomy that 
                 <h4>{area['label']}</h4>
                 <span class="score">{area['impact']}/10</span>
             </div>
-            <div style="color:#5F6368;font-size:0.85rem;margin-bottom:8px;">{area['description']}</div>
+            <div style="color:#5F6368;font-size:0.85rem;margin-bottom:8px;line-height:1.5;">{area['description']}</div>
             <div style="color:#9AA0A6;font-size:0.75rem;">Evidence: {area['evidence_count']} reviews · {plat_str}</div>
         </div>
         """, unsafe_allow_html=True)
@@ -451,13 +598,10 @@ Each review was manually read and tagged with 1–3 themes from a taxonomy that 
 # 9. PAGE: ASK INSIGHTS — PUBLIC REVIEWS
 # ─────────────────────────────────────────────
 def page_public_reviews():
-    st.markdown("# 💬 Ask Insights from Public Reviews")
-    st.markdown(
-        "Ask any question about Google Photos retrieval problems. "
-        "The engine searches the review corpus and synthesizes an AI-grounded answer."
-    )
+    st.markdown('<div class="page-title">Ask Insights from Public Reviews</div>', unsafe_allow_html=True)
+    st.markdown('<div class="page-subtitle">Search the review corpus with any question — TF-IDF retrieval + AI synthesis</div>', unsafe_allow_html=True)
+    google_accent_bar()
 
-    # ── Suggested questions ──
     with st.expander("💡 Sample questions to try"):
         st.markdown("""
 - What kinds of old photos do users struggle to retrieve?
@@ -470,7 +614,7 @@ def page_public_reviews():
 - How do users feel about the trade-off between AI search and classic keyword search?
         """)
 
-    query = st.text_input("🔎 Your question:", placeholder="e.g. What kinds of photos are hardest to find?")
+    query = st.text_input("Your question:", placeholder="e.g. What kinds of photos are hardest to find?")
     search_btn = st.button("Search & Synthesize", type="primary")
 
     if search_btn and query:
@@ -479,7 +623,6 @@ def page_public_reviews():
             st.warning("No matching reviews found. Try different keywords.")
             return
 
-        # ── AI Synthesis ──
         api_key = get_api_key()
         if api_key:
             evidence = "\n\n".join(
@@ -493,21 +636,16 @@ def page_public_reviews():
                 st.error(f"LLM error: {answer}")
             else:
                 st.markdown(
-                    f'<div class="ai-answer"><b>🤖 AI-Synthesized Answer</b><br><br>{answer}</div>',
+                    f'<div class="ai-answer"><b>AI-Synthesized Answer</b><br><br>{answer}</div>',
                     unsafe_allow_html=True,
                 )
         else:
             st.info("Add your Groq API key in Streamlit Cloud Secrets (`GROQ_API_KEY`) to enable AI synthesis.")
 
-        # ── Source Reviews ──
-        st.markdown(
-            f'<div class="section-hdr">Source Reviews ({len(results)} matches)</div>',
-            unsafe_allow_html=True,
-        )
+        st.markdown(f'<div class="section-hdr">Source Reviews ({len(results)} matches)</div>', unsafe_allow_html=True)
         for r in results:
             render_review_card(r)
 
-        # ── Theme distribution of results ──
         theme_dist = Counter()
         for r in results:
             for t in r.get("themes", []):
@@ -524,7 +662,8 @@ def page_public_reviews():
 # 10. PAGE: ASK INSIGHTS — USER SURVEY
 # ─────────────────────────────────────────────
 def page_user_survey():
-    st.markdown("# 📋 Ask Insights from User Survey")
+    st.markdown('<div class="page-title">Ask Insights from User Survey</div>', unsafe_allow_html=True)
+    google_accent_bar()
 
     if not SURVEY:
         st.info(
@@ -544,10 +683,9 @@ def page_user_survey():
 }""", language="json")
         return
 
-    # If survey data is loaded:
-    st.markdown(f"**{len(SURVEY)}** survey responses loaded.")
+    st.markdown(f'<div class="page-subtitle">{len(SURVEY)} survey responses loaded</div>', unsafe_allow_html=True)
 
-    query = st.text_input("🔎 Your question:", placeholder="e.g. What barriers do users face when retrieving old photos?")
+    query = st.text_input("Your question:", placeholder="e.g. What barriers do users face when retrieving old photos?")
     search_btn = st.button("Search & Synthesize", type="primary")
 
     if search_btn and query and survey_engine:
@@ -569,7 +707,7 @@ def page_user_survey():
                 st.error(f"LLM error: {answer}")
             else:
                 st.markdown(
-                    f'<div class="ai-answer"><b>🤖 AI-Synthesized Answer</b><br><br>{answer}</div>',
+                    f'<div class="ai-answer"><b>AI-Synthesized Answer</b><br><br>{answer}</div>',
                     unsafe_allow_html=True,
                 )
         else:
@@ -579,8 +717,8 @@ def page_user_survey():
         for r in results:
             st.markdown(
                 f"""<div class="review-card">
-                    <div style="color:#1A73E8;font-weight:600;font-size:0.85rem;">Respondent {r.get('id','')}</div>
-                    <div style="color:#202124;font-size:0.9rem;margin-top:6px;">{r.get('searchable_text','')[:400]}...</div>
+                    <div style="color:#4285F4;font-weight:600;font-size:0.85rem;">Respondent {r.get('id','')}</div>
+                    <div class="review-text">{r.get('searchable_text','')[:400]}...</div>
                 </div>""",
                 unsafe_allow_html=True,
             )
@@ -590,10 +728,10 @@ def page_user_survey():
 # 11. PAGE: REVIEW EXPLORER
 # ─────────────────────────────────────────────
 def page_explorer():
-    st.markdown("# 🗂 Review Explorer")
-    st.markdown("Filter and browse the full review corpus.")
+    st.markdown('<div class="page-title">Review Explorer</div>', unsafe_allow_html=True)
+    st.markdown('<div class="page-subtitle">Filter and browse the full review corpus</div>', unsafe_allow_html=True)
+    google_accent_bar()
 
-    # ── Filters ──
     c1, c2, c3, c4 = st.columns(4)
     platforms = sorted(set(r.get("platform", "Unknown") for r in REVIEWS))
     all_themes = sorted(set(t for r in REVIEWS for t in r.get("themes", [])))
@@ -617,7 +755,7 @@ def page_explorer():
         and any(t in sel_themes for t in r.get("themes", []))
     ]
 
-    st.markdown(f"**Showing {len(filtered)} of {len(REVIEWS)} reviews**")
+    st.markdown(f"**Showing {len(filtered)}** of {len(REVIEWS)} reviews")
     st.markdown("---")
 
     for r in filtered:
@@ -628,8 +766,9 @@ def page_explorer():
 # 12. PAGE: COMPARISON MATRIX
 # ─────────────────────────────────────────────
 def page_comparison():
-    st.markdown("# 📈 Comparison Matrix")
-    st.markdown("Interactive scatter plot: **Impact vs Evidence Volume** for each opportunity area.")
+    st.markdown('<div class="page-title">Comparison Matrix</div>', unsafe_allow_html=True)
+    st.markdown('<div class="page-subtitle">Impact vs Evidence Volume for each opportunity area</div>', unsafe_allow_html=True)
+    google_accent_bar()
 
     try:
         import altair as alt
@@ -653,9 +792,7 @@ def page_comparison():
             y=alt.Y("impact:Q", title="Impact Score (0–10)", scale=alt.Scale(domain=[0, 10.5])),
             color=alt.Color(
                 "label:N", title="Opportunity Area",
-                scale=alt.Scale(
-                    range=["#1A73E8", "#EA4335", "#34A853", "#FBBC04", "#8E24AA", "#00ACC1", "#FF7043", "#78909C"]
-                ),
+                scale=alt.Scale(range=["#4285F4", "#EA4335", "#34A853", "#FBBC05", "#8E24AA", "#00ACC1", "#FF7043", "#78909C"]),
             ),
             tooltip=["label:N", "impact:Q", "evidence_count:Q", "description:N"],
         )
@@ -666,12 +803,18 @@ def page_comparison():
     )
     st.altair_chart(chart, use_container_width=True)
 
-    # ── Summary table ──
     st.markdown('<div class="section-hdr">Summary Table</div>', unsafe_allow_html=True)
     summary_df = df[["label", "impact", "evidence_count"]].rename(
-        columns={"label": "Opportunity Area", "impact": "Impact Score", "evidence_count": "Evidence Count"}
+        columns={"label": "Opportunity Area", "impact": "Impact Score*", "evidence_count": "Evidence Count"}
     )
-    st.dataframe(summary_df.sort_values("Impact Score", ascending=False), use_container_width=True, hide_index=True)
+    st.dataframe(summary_df.sort_values("Impact Score*", ascending=False), use_container_width=True, hide_index=True)
+    st.markdown(
+        '<p style="color:#9AA0A6;font-size:0.75rem;margin-top:4px;">'
+        '*Impact Score = (review count for this theme ÷ highest review count across all themes) × 10. '
+        'It is a proxy for how widespread the problem is based on evidence volume, not a measure of severity or business impact.'
+        '</p>',
+        unsafe_allow_html=True,
+    )
 
 
 # ─────────────────────────────────────────────
@@ -682,13 +825,13 @@ KPI_NODES = {
         "label": "% Who Attempt Fuzzy Retrieval",
         "metric": "Awareness & willingness to search",
         "description": "Do users even attempt a search when they have a vague, incomplete memory of a photo? Many users have learned that search won't understand what they're looking for, so they default to scrolling or asking friends. This node captures abandonment before a search is even tried.",
-        "color": "#1A73E8",
+        "color": "#4285F4",
     },
     "query_formation": {
         "label": "Query Formation",
         "metric": "72% — moderate friction",
         "description": "Can users translate their episodic memory into a text query? Users remember scenes, emotions, colors, and context — but the search requires keywords. The gap between how humans remember and how they must express that memory is the core friction here.",
-        "color": "#FBBC04",
+        "color": "#FBBC05",
     },
     "result_relevance": {
         "label": "Result Relevance",
@@ -719,46 +862,44 @@ KPI_FUNNEL_ORDER = [
 ]
 
 def page_kpi_tree():
-    st.markdown("# 🎯 Focused Reviews (KPI Tree)")
-    st.markdown(
-        "Browse user evidence mapped to each stage of the **retrieval success funnel**. "
-        "This maps directly to the KPI tree that decomposes # Successful Retrievals."
-    )
+    st.markdown('<div class="page-title">Focused Reviews (KPI Tree)</div>', unsafe_allow_html=True)
+    st.markdown('<div class="page-subtitle">User evidence mapped to each stage of the retrieval success funnel</div>', unsafe_allow_html=True)
+    google_accent_bar()
 
     # ── Funnel visualization ──
     st.markdown('<div class="section-hdr">Retrieval Success Funnel</div>', unsafe_allow_html=True)
     st.markdown("""
-    <div style="background:#FFFFFF;border-radius:12px;padding:20px;border:1px solid #E0E0E0;margin-bottom:24px;">
-        <div style="text-align:center;color:#5F6368;font-size:0.8rem;margin-bottom:12px;">
+    <div style="background:#FFFFFF;border-radius:12px;padding:24px;box-shadow:0 1px 2px rgba(60,64,67,0.3);margin-bottom:28px;">
+        <div style="text-align:center;color:#5F6368;font-size:0.82rem;margin-bottom:8px;">
             Success Rate per Session = Query Formation × Result Relevance × Target Found × Confirmed
         </div>
-        <div style="text-align:center;color:#202124;font-size:1rem;font-weight:600;margin-bottom:16px;">
+        <div style="text-align:center;color:#202124;font-size:1.1rem;font-weight:700;margin-bottom:20px;">
             0.72 × 0.45 × 0.60 × 0.90 ≈ <span style="color:#EA4335;">17.5% success rate</span>
         </div>
-        <div style="display:flex;gap:8px;align-items:stretch;">
-            <div style="flex:1;background:#E8F0FE;border-radius:8px;padding:12px;text-align:center;border-top:3px solid #1A73E8;">
-                <div style="font-size:0.7rem;color:#5F6368;">ATTEMPT</div>
-                <div style="font-size:0.85rem;font-weight:600;color:#1A73E8;">Fuzzy Retrieval</div>
+        <div style="display:flex;gap:6px;align-items:stretch;">
+            <div style="flex:1;background:#E8F0FE;border-radius:8px;padding:14px 8px;text-align:center;border-top:3px solid #4285F4;">
+                <div style="font-size:0.65rem;color:#5F6368;text-transform:uppercase;letter-spacing:0.05em;">Attempt</div>
+                <div style="font-size:0.82rem;font-weight:700;color:#4285F4;margin-top:2px;">Fuzzy Retrieval</div>
             </div>
-            <div style="display:flex;align-items:center;color:#9AA0A6;">→</div>
-            <div style="flex:1;background:#FEF7E0;border-radius:8px;padding:12px;text-align:center;border-top:3px solid #FBBC04;">
-                <div style="font-size:0.7rem;color:#5F6368;">QUERY</div>
-                <div style="font-size:0.85rem;font-weight:600;color:#FBBC04;">72%</div>
+            <div style="display:flex;align-items:center;color:#DADCE0;font-size:1.2rem;">›</div>
+            <div style="flex:1;background:#FEF7E0;border-radius:8px;padding:14px 8px;text-align:center;border-top:3px solid #FBBC05;">
+                <div style="font-size:0.65rem;color:#5F6368;text-transform:uppercase;letter-spacing:0.05em;">Query</div>
+                <div style="font-size:0.82rem;font-weight:700;color:#FBBC05;margin-top:2px;">72%</div>
             </div>
-            <div style="display:flex;align-items:center;color:#9AA0A6;">→</div>
-            <div style="flex:1;background:#FCE8E6;border-radius:8px;padding:12px;text-align:center;border-top:3px solid #EA4335;">
-                <div style="font-size:0.7rem;color:#5F6368;">RELEVANCE</div>
-                <div style="font-size:0.85rem;font-weight:600;color:#EA4335;">45% ⚠️</div>
+            <div style="display:flex;align-items:center;color:#DADCE0;font-size:1.2rem;">›</div>
+            <div style="flex:1;background:#FCE8E6;border-radius:8px;padding:14px 8px;text-align:center;border-top:3px solid #EA4335;">
+                <div style="font-size:0.65rem;color:#5F6368;text-transform:uppercase;letter-spacing:0.05em;">Relevance</div>
+                <div style="font-size:0.82rem;font-weight:700;color:#EA4335;margin-top:2px;">45% ⚠</div>
             </div>
-            <div style="display:flex;align-items:center;color:#9AA0A6;">→</div>
-            <div style="flex:1;background:#FBE9E7;border-radius:8px;padding:12px;text-align:center;border-top:3px solid #FF7043;">
-                <div style="font-size:0.7rem;color:#5F6368;">FOUND</div>
-                <div style="font-size:0.85rem;font-weight:600;color:#FF7043;">60%</div>
+            <div style="display:flex;align-items:center;color:#DADCE0;font-size:1.2rem;">›</div>
+            <div style="flex:1;background:#FBE9E7;border-radius:8px;padding:14px 8px;text-align:center;border-top:3px solid #FF7043;">
+                <div style="font-size:0.65rem;color:#5F6368;text-transform:uppercase;letter-spacing:0.05em;">Found</div>
+                <div style="font-size:0.82rem;font-weight:700;color:#FF7043;margin-top:2px;">60%</div>
             </div>
-            <div style="display:flex;align-items:center;color:#9AA0A6;">→</div>
-            <div style="flex:1;background:#E6F4EA;border-radius:8px;padding:12px;text-align:center;border-top:3px solid #34A853;">
-                <div style="font-size:0.7rem;color:#5F6368;">CONFIRMED</div>
-                <div style="font-size:0.85rem;font-weight:600;color:#34A853;">90% ✓</div>
+            <div style="display:flex;align-items:center;color:#DADCE0;font-size:1.2rem;">›</div>
+            <div style="flex:1;background:#E6F4EA;border-radius:8px;padding:14px 8px;text-align:center;border-top:3px solid #34A853;">
+                <div style="font-size:0.65rem;color:#5F6368;text-transform:uppercase;letter-spacing:0.05em;">Confirmed</div>
+                <div style="font-size:0.82rem;font-weight:700;color:#34A853;margin-top:2px;">90% ✓</div>
             </div>
         </div>
     </div>
@@ -782,36 +923,41 @@ def page_kpi_tree():
     mix_count = len(node_reviews) - neg_count - pos_count
 
     st.markdown(f"""
-    <div style="background:#FFFFFF;border-radius:12px;padding:24px;border:1px solid #E0E0E0;
-                border-left:5px solid {node_info['color']};margin-bottom:20px;
-                box-shadow:0 1px 3px rgba(0,0,0,0.1);">
+    <div style="background:#FFFFFF;border-radius:12px;padding:24px;
+                border-left:5px solid {node_info['color']};margin-bottom:24px;
+                box-shadow:0 1px 2px rgba(60,64,67,0.3);">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;">
             <div>
-                <h3 style="margin:0;color:#202124;">{node_info['label']}</h3>
-                <span style="color:{node_info['color']};font-weight:600;font-size:0.9rem;">{node_info['metric']}</span>
+                <h3 style="margin:0;color:#202124;font-size:1.2rem;">{node_info['label']}</h3>
+                <span style="color:{node_info['color']};font-weight:600;font-size:0.88rem;">{node_info['metric']}</span>
             </div>
             <div style="text-align:right;">
-                <div style="font-size:2rem;font-weight:700;color:{node_info['color']};">{len(node_reviews)}</div>
+                <div style="font-size:2.2rem;font-weight:700;color:{node_info['color']};line-height:1;">{len(node_reviews)}</div>
                 <div style="font-size:0.75rem;color:#5F6368;">reviews</div>
             </div>
         </div>
-        <p style="color:#5F6368;font-size:0.88rem;margin-top:12px;line-height:1.5;">{node_info['description']}</p>
-        <div style="margin-top:12px;display:flex;gap:16px;">
-            <span style="color:#EA4335;font-size:0.8rem;">🔴 {neg_count} negative</span>
-            <span style="color:#34A853;font-size:0.8rem;">🟢 {pos_count} positive</span>
-            <span style="color:#FBBC04;font-size:0.8rem;">🟡 {mix_count} mixed/neutral</span>
+        <p style="color:#5F6368;font-size:0.88rem;margin-top:14px;line-height:1.6;">{node_info['description']}</p>
+        <div style="margin-top:14px;display:flex;gap:20px;">
+            <span style="color:#EA4335;font-size:0.8rem;font-weight:500;">● {neg_count} negative</span>
+            <span style="color:#34A853;font-size:0.8rem;font-weight:500;">● {pos_count} positive</span>
+            <span style="color:#F9AB00;font-size:0.8rem;font-weight:500;">● {mix_count} mixed</span>
         </div>
     </div>
     """, unsafe_allow_html=True)
 
-    # ── Platform breakdown for this node ──
+    # ── Platform breakdown for this node — capped at 4 cols ──
     plat_counts = Counter(r.get("platform", "Unknown") for r in node_reviews)
     if plat_counts:
-        cols = st.columns(len(plat_counts))
-        for i, (plat, cnt) in enumerate(plat_counts.most_common()):
+        top_plats = plat_counts.most_common(4)
+        cols = st.columns(len(top_plats), gap="medium")
+        plat_colors = ["#4285F4", "#EA4335", "#FBBC05", "#34A853"]
+        for i, (plat, cnt) in enumerate(top_plats):
             with cols[i]:
                 st.markdown(
-                    f'<div class="metric-card"><h2>{cnt}</h2><p>{plat}</p></div>',
+                    f'<div class="g-card">'
+                    f'<div class="g-num" style="color:{plat_colors[i % 4]};">{cnt}</div>'
+                    f'<div class="g-label">{plat}</div>'
+                    f'</div>',
                     unsafe_allow_html=True,
                 )
 
@@ -819,7 +965,7 @@ def page_kpi_tree():
     st.markdown("---")
     api_key = get_api_key()
     if api_key:
-        synth_btn = st.button(f"🤖 Synthesize insights for: {node_info['label']}", type="primary")
+        synth_btn = st.button(f"Synthesize insights for: {node_info['label']}", type="primary")
         if synth_btn:
             evidence = "\n\n".join(
                 f"[Review {r['id']} | {r['platform']} | {r['sentiment']}]: \"{r['text']}\""
@@ -848,7 +994,7 @@ Quote specific reviews as evidence."""
                 st.error(f"LLM error: {answer}")
             else:
                 st.markdown(
-                    f'<div class="ai-answer"><b>🤖 AI Synthesis — {node_info["label"]}</b><br><br>{answer}</div>',
+                    f'<div class="ai-answer"><b>AI Synthesis — {node_info["label"]}</b><br><br>{answer}</div>',
                     unsafe_allow_html=True,
                 )
 
@@ -858,7 +1004,6 @@ Quote specific reviews as evidence."""
         unsafe_allow_html=True,
     )
 
-    # Filter by sentiment
     sent_filter = st.multiselect(
         "Filter by sentiment:",
         ["negative", "positive", "mixed", "neutral"],
