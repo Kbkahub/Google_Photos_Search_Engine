@@ -44,7 +44,7 @@ button[data-testid="stSidebarCollapseButton"] { display: none !important; }
 
 /* ── Main content area ── */
 .main .block-container {
-    padding-top: 2rem !important;
+    padding-top: 0.5rem !important;
     padding-bottom: 2rem !important;
     max-width: 1100px !important;
 }
@@ -55,6 +55,7 @@ button[data-testid="stSidebarCollapseButton"] { display: none !important; }
     min-width: 280px !important; width: 280px !important;
     transform: none !important; display: block !important;
 }
+[data-testid="stSidebar"] > div:first-child { padding-top: 1rem !important; }
 
 /* ── Sidebar ── */
 div[data-testid="stSidebar"] {
@@ -82,8 +83,8 @@ div[data-testid="stSidebar"] .stButton > button:hover {
     color: #FFFFFF !important;
 }
 div[data-testid="stSidebar"] .stButton > button[kind="primary"] {
-    background: rgba(255,255,255,0.2) !important;
-    color: #FFFFFF !important;
+    background: #FBBC05 !important;
+    color: #202124 !important;
     font-weight: 700 !important;
 }
 
@@ -542,18 +543,18 @@ def page_dashboard():
     st.markdown('<div class="section-hdr">Reviews by Platform</div>', unsafe_allow_html=True)
     plat_counts = Counter(r.get("platform", "Unknown") for r in REVIEWS)
     plat_colors = ["#4285F4", "#EA4335", "#FBBC05", "#34A853", "#8E24AA", "#00ACC1", "#FF7043"]
+    plat_html = '<div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;">'
     for idx, (plat, cnt) in enumerate(plat_counts.most_common()):
-        pct = cnt / len(REVIEWS) * 100
-        bar_color = plat_colors[idx % len(plat_colors)]
-        st.markdown(f"""
-        <div class="plat-card">
-            <div style="flex:1;">
-                <div class="plat-name">{plat}</div>
-                <div class="plat-bar"><div class="plat-bar-fill" style="width:{pct}%;background:{bar_color};"></div></div>
-            </div>
-            <div class="plat-count">{cnt}</div>
-        </div>
-        """, unsafe_allow_html=True)
+        c = plat_colors[idx % len(plat_colors)]
+        plat_html += (
+            f'<div style="background:#FFFFFF;border-radius:10px;padding:14px 20px;'
+            f'box-shadow:0 1px 2px rgba(60,64,67,0.2);border-top:3px solid {c};text-align:center;min-width:120px;">'
+            f'<div style="font-size:1.5rem;font-weight:700;color:{c};">{cnt}</div>'
+            f'<div style="font-size:0.75rem;color:#5F6368;margin-top:2px;">{plat}</div>'
+            f'</div>'
+        )
+    plat_html += '</div>'
+    st.markdown(plat_html, unsafe_allow_html=True)
 
     # ── Affinity Mapping ──
     st.markdown('<div class="section-hdr">Affinity Mapping</div>', unsafe_allow_html=True)
