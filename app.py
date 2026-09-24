@@ -331,6 +331,7 @@ def compute_opportunity_areas():
 # ─────────────────────────────────────────────
 NAV_ITEMS = [
     ("dashboard", "DASHBOARD"),
+    ("kpi_tree", "FOCUSED REVIEWS (KPI TREE)"),
     ("public_reviews", "ASK INSIGHTS FROM PUBLIC REVIEWS"),
     ("user_survey", "ASK INSIGHTS FROM USER SURVEY"),
     ("explorer", "REVIEW EXPLORER"),
@@ -674,10 +675,208 @@ def page_comparison():
 
 
 # ─────────────────────────────────────────────
-# 13. ROUTER
+# 13. PAGE: FOCUSED REVIEWS (KPI TREE)
+# ─────────────────────────────────────────────
+KPI_NODES = {
+    "attempt_fuzzy_retrieval": {
+        "label": "% Who Attempt Fuzzy Retrieval",
+        "metric": "Awareness & willingness to search",
+        "description": "Do users even attempt a search when they have a vague, incomplete memory of a photo? Many users have learned that search won't understand what they're looking for, so they default to scrolling or asking friends. This node captures abandonment before a search is even tried.",
+        "color": "#1A73E8",
+    },
+    "query_formation": {
+        "label": "Query Formation",
+        "metric": "72% — moderate friction",
+        "description": "Can users translate their episodic memory into a text query? Users remember scenes, emotions, colors, and context — but the search requires keywords. The gap between how humans remember and how they must express that memory is the core friction here.",
+        "color": "#FBBC04",
+    },
+    "result_relevance": {
+        "label": "Result Relevance",
+        "metric": "45% — BOTTLENECK",
+        "description": "Are the search results actually relevant to what the user is looking for? This is the biggest drop-off in the funnel. Search returns too many results, wrong results, or misses the target entirely. Adjectives are ignored, context is lost, and AI search regressions have worsened this.",
+        "color": "#EA4335",
+    },
+    "target_found": {
+        "label": "Target Found",
+        "metric": "60% — significant drop",
+        "description": "Even when results are broadly relevant, can the user identify THE specific photo they were looking for? A search for 'beach' might return 200 beach photos — the user must visually scan tiny thumbnails to find the one. No sub-filtering, no result sorting, no refine-within-results.",
+        "color": "#FF7043",
+    },
+    "confirmed": {
+        "label": "Confirmed",
+        "metric": "90% — healthy",
+        "description": "Once a user thinks they found the photo, are they confident it's the right one? This step is mostly healthy, but fails for similar-looking documents, repeated visits to the same location, and photos where metadata (date, location) is needed for verification but hidden behind taps.",
+        "color": "#34A853",
+    },
+}
+
+KPI_FUNNEL_ORDER = [
+    "attempt_fuzzy_retrieval",
+    "query_formation",
+    "result_relevance",
+    "target_found",
+    "confirmed",
+]
+
+def page_kpi_tree():
+    st.markdown("# 🎯 Focused Reviews (KPI Tree)")
+    st.markdown(
+        "Browse user evidence mapped to each stage of the **retrieval success funnel**. "
+        "This maps directly to the KPI tree that decomposes # Successful Retrievals."
+    )
+
+    # ── Funnel visualization ──
+    st.markdown('<div class="section-hdr">Retrieval Success Funnel</div>', unsafe_allow_html=True)
+    st.markdown("""
+    <div style="background:#FFFFFF;border-radius:12px;padding:20px;border:1px solid #E0E0E0;margin-bottom:24px;">
+        <div style="text-align:center;color:#5F6368;font-size:0.8rem;margin-bottom:12px;">
+            Success Rate per Session = Query Formation × Result Relevance × Target Found × Confirmed
+        </div>
+        <div style="text-align:center;color:#202124;font-size:1rem;font-weight:600;margin-bottom:16px;">
+            0.72 × 0.45 × 0.60 × 0.90 ≈ <span style="color:#EA4335;">17.5% success rate</span>
+        </div>
+        <div style="display:flex;gap:8px;align-items:stretch;">
+            <div style="flex:1;background:#E8F0FE;border-radius:8px;padding:12px;text-align:center;border-top:3px solid #1A73E8;">
+                <div style="font-size:0.7rem;color:#5F6368;">ATTEMPT</div>
+                <div style="font-size:0.85rem;font-weight:600;color:#1A73E8;">Fuzzy Retrieval</div>
+            </div>
+            <div style="display:flex;align-items:center;color:#9AA0A6;">→</div>
+            <div style="flex:1;background:#FEF7E0;border-radius:8px;padding:12px;text-align:center;border-top:3px solid #FBBC04;">
+                <div style="font-size:0.7rem;color:#5F6368;">QUERY</div>
+                <div style="font-size:0.85rem;font-weight:600;color:#FBBC04;">72%</div>
+            </div>
+            <div style="display:flex;align-items:center;color:#9AA0A6;">→</div>
+            <div style="flex:1;background:#FCE8E6;border-radius:8px;padding:12px;text-align:center;border-top:3px solid #EA4335;">
+                <div style="font-size:0.7rem;color:#5F6368;">RELEVANCE</div>
+                <div style="font-size:0.85rem;font-weight:600;color:#EA4335;">45% ⚠️</div>
+            </div>
+            <div style="display:flex;align-items:center;color:#9AA0A6;">→</div>
+            <div style="flex:1;background:#FBE9E7;border-radius:8px;padding:12px;text-align:center;border-top:3px solid #FF7043;">
+                <div style="font-size:0.7rem;color:#5F6368;">FOUND</div>
+                <div style="font-size:0.85rem;font-weight:600;color:#FF7043;">60%</div>
+            </div>
+            <div style="display:flex;align-items:center;color:#9AA0A6;">→</div>
+            <div style="flex:1;background:#E6F4EA;border-radius:8px;padding:12px;text-align:center;border-top:3px solid #34A853;">
+                <div style="font-size:0.7rem;color:#5F6368;">CONFIRMED</div>
+                <div style="font-size:0.85rem;font-weight:600;color:#34A853;">90% ✓</div>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # ── Node selector ──
+    st.markdown('<div class="section-hdr">Explore by Funnel Stage</div>', unsafe_allow_html=True)
+
+    selected_node = st.selectbox(
+        "Select a funnel stage:",
+        KPI_FUNNEL_ORDER,
+        format_func=lambda x: f"{KPI_NODES[x]['label']} ({KPI_NODES[x]['metric']})",
+    )
+
+    node_info = KPI_NODES[selected_node]
+
+    # ── Node header card ──
+    node_reviews = [r for r in REVIEWS if selected_node in r.get("kpi_node", [])]
+    neg_count = sum(1 for r in node_reviews if r.get("sentiment") == "negative")
+    pos_count = sum(1 for r in node_reviews if r.get("sentiment") == "positive")
+    mix_count = len(node_reviews) - neg_count - pos_count
+
+    st.markdown(f"""
+    <div style="background:#FFFFFF;border-radius:12px;padding:24px;border:1px solid #E0E0E0;
+                border-left:5px solid {node_info['color']};margin-bottom:20px;
+                box-shadow:0 1px 3px rgba(0,0,0,0.1);">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div>
+                <h3 style="margin:0;color:#202124;">{node_info['label']}</h3>
+                <span style="color:{node_info['color']};font-weight:600;font-size:0.9rem;">{node_info['metric']}</span>
+            </div>
+            <div style="text-align:right;">
+                <div style="font-size:2rem;font-weight:700;color:{node_info['color']};">{len(node_reviews)}</div>
+                <div style="font-size:0.75rem;color:#5F6368;">reviews</div>
+            </div>
+        </div>
+        <p style="color:#5F6368;font-size:0.88rem;margin-top:12px;line-height:1.5;">{node_info['description']}</p>
+        <div style="margin-top:12px;display:flex;gap:16px;">
+            <span style="color:#EA4335;font-size:0.8rem;">🔴 {neg_count} negative</span>
+            <span style="color:#34A853;font-size:0.8rem;">🟢 {pos_count} positive</span>
+            <span style="color:#FBBC04;font-size:0.8rem;">🟡 {mix_count} mixed/neutral</span>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # ── Platform breakdown for this node ──
+    plat_counts = Counter(r.get("platform", "Unknown") for r in node_reviews)
+    if plat_counts:
+        cols = st.columns(len(plat_counts))
+        for i, (plat, cnt) in enumerate(plat_counts.most_common()):
+            with cols[i]:
+                st.markdown(
+                    f'<div class="metric-card"><h2>{cnt}</h2><p>{plat}</p></div>',
+                    unsafe_allow_html=True,
+                )
+
+    # ── AI synthesis for this node ──
+    st.markdown("---")
+    api_key = get_api_key()
+    if api_key:
+        synth_btn = st.button(f"🤖 Synthesize insights for: {node_info['label']}", type="primary")
+        if synth_btn:
+            evidence = "\n\n".join(
+                f"[Review {r['id']} | {r['platform']} | {r['sentiment']}]: \"{r['text']}\""
+                for r in node_reviews[:20]
+            )
+            kpi_prompt = f"""You are a senior user researcher analyzing Google Photos feedback mapped to a specific stage of the retrieval funnel.
+
+The funnel stage is: **{node_info['label']}** — {node_info['description']}
+
+Answer grounded ONLY in the provided reviews. Do NOT number sections.
+
+Start with a 2-3 sentence synthesis of what's happening at this funnel stage.
+
+Then **Key Patterns** — the 3-4 most prominent failure modes at this stage with evidence.
+
+Then **Who's Most Affected** — which user types suffer most at this stage.
+
+Then **Opportunity** — what specific product change would move this metric, grounded in what users say they need.
+
+Quote specific reviews as evidence."""
+
+            user_msg = f"FUNNEL STAGE: {node_info['label']}\n\nREVIEWS:\n{evidence}"
+            with st.spinner("Synthesizing insights..."):
+                answer = call_groq(kpi_prompt, user_msg, api_key)
+            if answer.startswith("__ERROR__"):
+                st.error(f"LLM error: {answer}")
+            else:
+                st.markdown(
+                    f'<div class="ai-answer"><b>🤖 AI Synthesis — {node_info["label"]}</b><br><br>{answer}</div>',
+                    unsafe_allow_html=True,
+                )
+
+    # ── Reviews list ──
+    st.markdown(
+        f'<div class="section-hdr">All Reviews — {node_info["label"]} ({len(node_reviews)})</div>',
+        unsafe_allow_html=True,
+    )
+
+    # Filter by sentiment
+    sent_filter = st.multiselect(
+        "Filter by sentiment:",
+        ["negative", "positive", "mixed", "neutral"],
+        default=["negative", "positive", "mixed", "neutral"],
+        key="kpi_sent_filter",
+    )
+    filtered = [r for r in node_reviews if r.get("sentiment") in sent_filter]
+    for r in filtered:
+        render_review_card(r)
+
+
+# ─────────────────────────────────────────────
+# 14. ROUTER
 # ─────────────────────────────────────────────
 if st.session_state["page"] == "dashboard":
     page_dashboard()
+elif st.session_state["page"] == "kpi_tree":
+    page_kpi_tree()
 elif st.session_state["page"] == "public_reviews":
     page_public_reviews()
 elif st.session_state["page"] == "user_survey":
