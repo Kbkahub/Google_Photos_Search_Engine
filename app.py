@@ -953,9 +953,6 @@ def page_kpi_tree():
         <div style="text-align:center;color:#5F6368;font-size:0.82rem;margin-bottom:8px;">
             Success Rate per Session = Query Formation × Result Relevance × Target Found × Confirmed
         </div>
-        <div style="text-align:center;color:#202124;font-size:1.1rem;font-weight:700;margin-bottom:20px;">
-            0.72 × 0.45 × 0.60 × 0.90 ≈ <span style="color:#EA4335;">17.5% success rate</span>
-        </div>
         <div style="display:flex;gap:6px;align-items:stretch;">
             <div style="flex:1;background:#E8F0FE;border-radius:8px;padding:14px 8px;text-align:center;border-top:3px solid #4285F4;">
                 <div style="font-size:0.65rem;color:#5F6368;text-transform:uppercase;letter-spacing:0.05em;">Attempt</div>
