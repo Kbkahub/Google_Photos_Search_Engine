@@ -686,35 +686,91 @@ def page_public_reviews():
 # ─────────────────────────────────────────────
 # 10. PAGE: ASK INSIGHTS — USER SURVEY
 # ─────────────────────────────────────────────
+def render_survey_card(r):
+    demo = r.get("demographics", {})
+    story = r.get("retrieval_story", {})
+    diag = r.get("diagnostics", {})
+    frustration = diag.get("biggest_frustration", "")
+    experience = diag.get("experience_story", "")
+    open_text = ""
+    if frustration and frustration.strip():
+        open_text += f'<div style="margin-top:10px;padding:10px 14px;background:#FCE8E6;border-radius:6px;font-size:0.85rem;color:#C5221F;"><b>Frustration:</b> "{frustration}"</div>'
+    if experience and experience.strip():
+        open_text += f'<div style="margin-top:6px;padding:10px 14px;background:#E8F0FE;border-radius:6px;font-size:0.85rem;color:#1A73E8;"><b>Experience:</b> "{experience}"</div>'
+
+    st.markdown(f"""
+    <div class="review-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+            <span style="color:#4285F4;font-weight:700;font-size:1rem;">Respondent {r.get('id','')}</span>
+            <div>
+                <span class="platform-tag">{demo.get('library_size','')}</span>
+                <span class="platform-tag">{demo.get('tenure','')}</span>
+            </div>
+        </div>
+        <div style="margin-bottom:6px;">
+            <span class="theme-tag">{demo.get('usage_behavior','')}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0;">
+            <div style="font-size:0.82rem;color:#5F6368;"><b style="color:#202124;">Looking for:</b> {story.get('photo_type','')}</div>
+            <div style="font-size:0.82rem;color:#5F6368;"><b style="color:#202124;">Outcome:</b> {story.get('how_ended','')}</div>
+            <div style="font-size:0.82rem;color:#5F6368;"><b style="color:#202124;">Remembered:</b> {story.get('what_remembered','')}</div>
+            <div style="font-size:0.82rem;color:#5F6368;"><b style="color:#202124;">Frequency:</b> {story.get('frequency','')}</div>
+        </div>
+        <div style="font-size:0.82rem;color:#5F6368;margin-top:4px;"><b style="color:#202124;">Top difficulties:</b> {diag.get('top_difficulties','')}</div>
+        <div style="font-size:0.82rem;color:#5F6368;margin-top:4px;"><b style="color:#202124;">Search level:</b> {diag.get('search_sophistication','')}</div>
+        <div style="font-size:0.82rem;color:#5F6368;margin-top:4px;"><b style="color:#202124;">Workarounds:</b> {diag.get('workarounds','')}</div>
+        {open_text}
+    </div>
+    """, unsafe_allow_html=True)
+
 def page_user_survey():
     st.markdown('<div class="page-title">Ask Insights from User Survey</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="page-subtitle">Primary research — {len(SURVEY)} respondents · 15 questions · Mom Test methodology</div>', unsafe_allow_html=True)
     google_accent_bar()
 
     if not SURVEY:
         st.info(
             "📂 **No survey data loaded yet.** Upload your survey data as `data/survey.json` "
-            "and redeploy. The survey page will light up with search and AI synthesis over "
-            "your primary research data."
+            "and redeploy."
         )
-        st.markdown("---")
-        st.markdown("### Expected format for `survey.json`")
-        st.code("""{
-  "id": 1,
-  "demographics": { "gender": "Male", "age_group": "23-25", ... },
-  "usage_behavior": { ... },
-  "barriers_ratings": { "barrier_name": 3.0 },
-  "open_ended_field": "User's verbatim response",
-  "searchable_text": "All text fields concatenated for TF-IDF search"
-}""", language="json")
         return
 
-    st.markdown(f'<div class="page-subtitle">{len(SURVEY)} survey responses loaded</div>', unsafe_allow_html=True)
+    # ── Overview metrics ──
+    seg_counts = Counter(r.get("demographics", {}).get("usage_behavior", "") for r in SURVEY)
+    cols = st.columns(4, gap="medium")
+    overview = [
+        (len(SURVEY), "Respondents", "#4285F4"),
+        (sum(1 for r in SURVEY if "back up" in r.get("demographics",{}).get("usage_behavior","").lower() or "browse" in r.get("demographics",{}).get("usage_behavior","").lower()), "Unorganized Majority", "#EA4335"),
+        (sum(1 for r in SURVEY if "organize" in r.get("demographics",{}).get("usage_behavior","").lower()), "Active Organizers", "#34A853"),
+        (15, "Questions Asked", "#FBBC04"),
+    ]
+    for i, (num, label, color) in enumerate(overview):
+        with cols[i]:
+            st.markdown(
+                f'<div class="g-card"><div class="g-num" style="color:{color};">{num}</div>'
+                f'<div class="g-label">{label}</div></div>',
+                unsafe_allow_html=True,
+            )
 
-    query = st.text_input("Your question:", placeholder="e.g. What barriers do users face when retrieving old photos?")
+    # ── Sample questions ──
+    with st.expander("💡 Sample questions to try"):
+        st.markdown("""
+- What do users remember about photos they're looking for?
+- How do users search for photos? What methods do they use?
+- What workarounds do users have when search fails?
+- Which users didn't know search existed?
+- What are the biggest frustrations with finding old photos?
+- How do passive hoarders vs active organizers differ?
+- Who goes to WhatsApp instead of Google Photos?
+- What high-stakes retrieval failures happened?
+        """)
+
+    # ── Search + AI synthesis ──
+    query = st.text_input("Your question:", placeholder="e.g. What do users remember about photos they want to find?")
     search_btn = st.button("Search & Synthesize", type="primary")
 
     if search_btn and query and survey_engine:
-        results = survey_engine.search(query, top_k=15)
+        results = survey_engine.search(query, top_k=7)
         if not results:
             st.warning("No matching survey responses found.")
             return
@@ -722,7 +778,7 @@ def page_user_survey():
         api_key = get_api_key()
         if api_key:
             evidence = "\n\n".join(
-                f"[Respondent {r.get('id','')}]: {r.get('searchable_text','')[:500]}"
+                f"[Respondent {r.get('id','')} | {r.get('demographics',{}).get('usage_behavior','')}]: {r.get('searchable_text','')[:600]}"
                 for r in results
             )
             user_msg = f"QUESTION: {query}\n\nSURVEY DATA:\n{evidence}"
@@ -736,17 +792,16 @@ def page_user_survey():
                     unsafe_allow_html=True,
                 )
         else:
-            st.info("Add your Groq API key in Streamlit Cloud Secrets to enable AI synthesis.")
+            st.info("Add your Groq API key in Streamlit Cloud Secrets (`GROQ_API_KEY`) to enable AI synthesis.")
 
         st.markdown(f'<div class="section-hdr">Matching Responses ({len(results)})</div>', unsafe_allow_html=True)
         for r in results:
-            st.markdown(
-                f"""<div class="review-card">
-                    <div style="color:#4285F4;font-weight:600;font-size:0.85rem;">Respondent {r.get('id','')}</div>
-                    <div class="review-text">{r.get('searchable_text','')[:400]}...</div>
-                </div>""",
-                unsafe_allow_html=True,
-            )
+            render_survey_card(r)
+    elif not query:
+        # Show all respondents when no search
+        st.markdown(f'<div class="section-hdr">All Respondents ({len(SURVEY)})</div>', unsafe_allow_html=True)
+        for r in SURVEY:
+            render_survey_card(r)
 
 
 # ─────────────────────────────────────────────
