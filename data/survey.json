@@ -1,3 +1,184 @@
 [
-  
+  {
+    "id": 1,
+    "demographics": {
+      "library_size": "5,000 \u2013 20,000",
+      "tenure": "More than 5 years",
+      "usage_behavior": "I browse my photos often but rarely use search"
+    },
+    "retrieval_story": {
+      "photo_type": "A photo from a trip or vacation",
+      "what_remembered": "Who was in it, Roughly where it was taken, Roughly when it was taken (month or year), What was happening in the scene, A color or visual detail, How it made me feel / the vibe, I could picture it clearly but couldn't describe it in words",
+      "how_tried": "Browsed through the People / Faces section, Scrolled through the timeline manually, Opened a specific album",
+      "search_outcome": "I didn't use the search bar",
+      "how_ended": "Found it quickly through search (under 2 minutes)",
+      "frequency": "Almost every time I look for something old"
+    },
+    "diagnostics": {
+      "top_difficulties": "I can picture the photo but can't describe it in search keywords, My screenshots and documents are mixed in with real photos, Photos from different phones/downloads have wrong dates, I don't trust the search to find everything, so I just scroll",
+      "confirmation_confidence": "Immediately sure \u2014 I recognize it",
+      "stakes": "Medium \u2014 wanted to share it with someone or post it",
+      "biggest_frustration": "Finding a person or place is relatively fine and can manage, but finding the documents is the toughest part ",
+      "search_sophistication": "I know it has search but I'm not sure what to type",
+      "experience_story": "Sorta true for both good and bad, I can pin point the time and type of photos, but since there are lots of pics even of the specific dates say 500-1000, find the one I want is very tricky ",
+      "workarounds": "Scroll through the timeline until I find it, Ask the other person who was there to send it, Give up and move on, Check WhatsApp/Instagram for the same photo"
+    },
+    "searchable_text": "library_size: 5,000 \u2013 20,000 | tenure: More than 5 years | usage_behavior: I browse my photos often but rarely use search | photo_type: A photo from a trip or vacation | what_remembered: Who was in it, Roughly where it was taken, Roughly when it was taken (month or year), What was happening in the scene, A color or visual detail, How it made me feel / the vibe, I could picture it clearly but couldn't describe it in words | how_tried: Browsed through the People / Faces section, Scrolled through the timeline manually, Opened a specific album | search_outcome: I didn't use the search bar | how_ended: Found it quickly through search (under 2 minutes) | frequency: Almost every time I look for something old | top_difficulties: I can picture the photo but can't describe it in search keywords, My screenshots and documents are mixed in with real photos, Photos from different phones/downloads have wrong dates, I don't trust the search to find everything, so I just scroll | confirmation_confidence: Immediately sure \u2014 I recognize it | stakes: Medium \u2014 wanted to share it with someone or post it | biggest_frustration: Finding a person or place is relatively fine and can manage, but finding the documents is the toughest part  | search_sophistication: I know it has search but I'm not sure what to type | experience_story: Sorta true for both good and bad, I can pin point the time and type of photos, but since there are lots of pics even of the specific dates say 500-1000, find the one I want is very tricky  | workarounds: Scroll through the timeline until I find it, Ask the other person who was there to send it, Give up and move on, Check WhatsApp/Instagram for the same photo"
+  },
+  {
+    "id": 2,
+    "demographics": {
+      "library_size": "More than 50,000",
+      "tenure": "More than 5 years",
+      "usage_behavior": "I actively organize \u2014 I create albums, label faces, and delete photos I don't need"
+    },
+    "retrieval_story": {
+      "photo_type": "A photo of a specific person or group",
+      "what_remembered": "Who was in it, A color or visual detail, I could picture it clearly but couldn't describe it in words",
+      "how_tried": "Typed a keyword in the search bar, Browsed through the People / Faces section, Scrolled through the timeline manually, Used \"Ask Photos\" / AI search",
+      "search_outcome": "I got relevant results but had to scroll through many to find it",
+      "how_ended": "Found it quickly through search (under 2 minutes)",
+      "frequency": "A few times a year"
+    },
+    "diagnostics": {
+      "top_difficulties": "I can picture the photo but can't describe it in search keywords, Face recognition groups are wrong or incomplete, My screenshots and documents are mixed in with real photos",
+      "confirmation_confidence": "Takes a moment \u2014 I have to check the date or location to confirm",
+      "stakes": "Medium \u2014 wanted to share it with someone or post it",
+      "biggest_frustration": "Group search results for things like solo photos with certain characteristic gives less results than I want",
+      "search_sophistication": "I've figured out specific tricks that work (like searching a person's name + a place) and I use them regularly",
+      "experience_story": "",
+      "workarounds": "Scroll through the timeline until I find it, Try different keywords and hope something works"
+    },
+    "searchable_text": "library_size: More than 50,000 | tenure: More than 5 years | usage_behavior: I actively organize \u2014 I create albums, label faces, and delete photos I don't need | photo_type: A photo of a specific person or group | what_remembered: Who was in it, A color or visual detail, I could picture it clearly but couldn't describe it in words | how_tried: Typed a keyword in the search bar, Browsed through the People / Faces section, Scrolled through the timeline manually, Used \"Ask Photos\" / AI search | search_outcome: I got relevant results but had to scroll through many to find it | how_ended: Found it quickly through search (under 2 minutes) | frequency: A few times a year | top_difficulties: I can picture the photo but can't describe it in search keywords, Face recognition groups are wrong or incomplete, My screenshots and documents are mixed in with real photos | confirmation_confidence: Takes a moment \u2014 I have to check the date or location to confirm | stakes: Medium \u2014 wanted to share it with someone or post it | biggest_frustration: Group search results for things like solo photos with certain characteristic gives less results than I want | search_sophistication: I've figured out specific tricks that work (like searching a person's name + a place) and I use them regularly | workarounds: Scroll through the timeline until I find it, Try different keywords and hope something works"
+  },
+  {
+    "id": 3,
+    "demographics": {
+      "library_size": "1,000 \u2013 5,000",
+      "tenure": "3\u20135 years",
+      "usage_behavior": "I mostly just back up photos and rarely go back to look at them"
+    },
+    "retrieval_story": {
+      "photo_type": "A photo from a trip or vacation",
+      "what_remembered": "Roughly where it was taken, Roughly when it was taken (month or year), What was happening in the scene",
+      "how_tried": "Typed a keyword in the search bar, Used \"Ask Photos\" / AI search",
+      "search_outcome": "The photo didn't appear in the results at all",
+      "how_ended": "Gave up \u2014 never found it",
+      "frequency": "A few times a year"
+    },
+    "diagnostics": {
+      "top_difficulties": "I don't remember when the photo was taken, My screenshots and documents are mixed in with real photos, The AI/Gemini search gives irrelevant or slow results, My albums are incomplete \u2014 not all photos are organized",
+      "confirmation_confidence": "Immediately sure \u2014 I recognize it",
+      "stakes": "Medium \u2014 wanted to share it with someone or post it",
+      "biggest_frustration": "Low storage, lesser photos backed up and indexed - searches are over a smaller set too",
+      "search_sophistication": "I know it works on keywords (like objects, places, people) and I try to pick the right word carefully",
+      "experience_story": "",
+      "workarounds": "Give up and move on, Try different keywords and hope something works, Open a specific album and browse through it"
+    },
+    "searchable_text": "library_size: 1,000 \u2013 5,000 | tenure: 3\u20135 years | usage_behavior: I mostly just back up photos and rarely go back to look at them | photo_type: A photo from a trip or vacation | what_remembered: Roughly where it was taken, Roughly when it was taken (month or year), What was happening in the scene | how_tried: Typed a keyword in the search bar, Used \"Ask Photos\" / AI search | search_outcome: The photo didn't appear in the results at all | how_ended: Gave up \u2014 never found it | frequency: A few times a year | top_difficulties: I don't remember when the photo was taken, My screenshots and documents are mixed in with real photos, The AI/Gemini search gives irrelevant or slow results, My albums are incomplete \u2014 not all photos are organized | confirmation_confidence: Immediately sure \u2014 I recognize it | stakes: Medium \u2014 wanted to share it with someone or post it | biggest_frustration: Low storage, lesser photos backed up and indexed - searches are over a smaller set too | search_sophistication: I know it works on keywords (like objects, places, people) and I try to pick the right word carefully | workarounds: Give up and move on, Try different keywords and hope something works, Open a specific album and browse through it"
+  },
+  {
+    "id": 4,
+    "demographics": {
+      "library_size": "1,000 \u2013 5,000",
+      "tenure": "3\u20135 years",
+      "usage_behavior": "I browse my photos often but rarely use search"
+    },
+    "retrieval_story": {
+      "photo_type": "A photo from a trip or vacation",
+      "what_remembered": "Very little \u2014 I just knew it existed",
+      "how_tried": "Typed a keyword in the search bar, Used \"Ask Photos\" / AI search",
+      "search_outcome": "I got relevant results but had to scroll through many to find it",
+      "how_ended": "Found it quickly through search (under 2 minutes)",
+      "frequency": "A few times a year"
+    },
+    "diagnostics": {
+      "top_difficulties": "I can picture the photo but can't describe it in search keywords, I don't remember when the photo was taken, The AI/Gemini search gives irrelevant or slow results",
+      "confirmation_confidence": "Immediately sure \u2014 I recognize it",
+      "stakes": "Medium \u2014 wanted to share it with someone or post it",
+      "biggest_frustration": "Search doesn't worke",
+      "search_sophistication": "I know it has search but I'm not sure what to type",
+      "experience_story": "",
+      "workarounds": "Check WhatsApp/Instagram for the same photo"
+    },
+    "searchable_text": "library_size: 1,000 \u2013 5,000 | tenure: 3\u20135 years | usage_behavior: I browse my photos often but rarely use search | photo_type: A photo from a trip or vacation | what_remembered: Very little \u2014 I just knew it existed | how_tried: Typed a keyword in the search bar, Used \"Ask Photos\" / AI search | search_outcome: I got relevant results but had to scroll through many to find it | how_ended: Found it quickly through search (under 2 minutes) | frequency: A few times a year | top_difficulties: I can picture the photo but can't describe it in search keywords, I don't remember when the photo was taken, The AI/Gemini search gives irrelevant or slow results | confirmation_confidence: Immediately sure \u2014 I recognize it | stakes: Medium \u2014 wanted to share it with someone or post it | biggest_frustration: Search doesn't worke | search_sophistication: I know it has search but I'm not sure what to type | workarounds: Check WhatsApp/Instagram for the same photo"
+  },
+  {
+    "id": 5,
+    "demographics": {
+      "library_size": "5,000 \u2013 20,000",
+      "tenure": "More than 5 years",
+      "usage_behavior": "I mostly just back up photos and rarely go back to look at them"
+    },
+    "retrieval_story": {
+      "photo_type": "A photo from an event (wedding, birthday, festival)",
+      "what_remembered": "Who was in it, Roughly where it was taken, How it made me feel / the vibe",
+      "how_tried": "Scrolled through the timeline manually",
+      "search_outcome": "I didn't use the search bar",
+      "how_ended": "Found it quickly through search (under 2 minutes)",
+      "frequency": "A few times a year"
+    },
+    "diagnostics": {
+      "top_difficulties": "I don't remember when the photo was taken, My screenshots and documents are mixed in with real photos",
+      "confirmation_confidence": "I picked one that seemed right but I'm not fully confident",
+      "stakes": "Medium \u2014 wanted to share it with someone or post it",
+      "biggest_frustration": "",
+      "search_sophistication": "I didn't know Google Photos had a search feature",
+      "experience_story": "",
+      "workarounds": "Scroll through the timeline until I find it, Check WhatsApp/Instagram for the same photo, Open a specific album and browse through it"
+    },
+    "searchable_text": "library_size: 5,000 \u2013 20,000 | tenure: More than 5 years | usage_behavior: I mostly just back up photos and rarely go back to look at them | photo_type: A photo from an event (wedding, birthday, festival) | what_remembered: Who was in it, Roughly where it was taken, How it made me feel / the vibe | how_tried: Scrolled through the timeline manually | search_outcome: I didn't use the search bar | how_ended: Found it quickly through search (under 2 minutes) | frequency: A few times a year | top_difficulties: I don't remember when the photo was taken, My screenshots and documents are mixed in with real photos | confirmation_confidence: I picked one that seemed right but I'm not fully confident | stakes: Medium \u2014 wanted to share it with someone or post it | search_sophistication: I didn't know Google Photos had a search feature | workarounds: Scroll through the timeline until I find it, Check WhatsApp/Instagram for the same photo, Open a specific album and browse through it"
+  },
+  {
+    "id": 6,
+    "demographics": {
+      "library_size": "More than 50,000",
+      "tenure": "3\u20135 years",
+      "usage_behavior": "I actively organize \u2014 I create albums, label faces, and delete photos I don't need"
+    },
+    "retrieval_story": {
+      "photo_type": "A photo of a document, receipt, or ID",
+      "what_remembered": "An object in the photo (food, building, car, etc.)",
+      "how_tried": "Typed a keyword in the search bar",
+      "search_outcome": "I got the exact photo I wanted",
+      "how_ended": "Found it quickly through search (under 2 minutes)",
+      "frequency": "About once a month"
+    },
+    "diagnostics": {
+      "top_difficulties": "I can picture the photo but can't describe it in search keywords, Search gives too many results and I can't narrow them down",
+      "confirmation_confidence": "Immediately sure \u2014 I recognize it",
+      "stakes": "Low \u2014 just felt like looking at it / nostalgia",
+      "biggest_frustration": "",
+      "search_sophistication": "I type whatever comes to mind and hope for the best",
+      "experience_story": "",
+      "workarounds": "Scroll through the timeline until I find it"
+    },
+    "searchable_text": "library_size: More than 50,000 | tenure: 3\u20135 years | usage_behavior: I actively organize \u2014 I create albums, label faces, and delete photos I don't need | photo_type: A photo of a document, receipt, or ID | what_remembered: An object in the photo (food, building, car, etc.) | how_tried: Typed a keyword in the search bar | search_outcome: I got the exact photo I wanted | how_ended: Found it quickly through search (under 2 minutes) | frequency: About once a month | top_difficulties: I can picture the photo but can't describe it in search keywords, Search gives too many results and I can't narrow them down | confirmation_confidence: Immediately sure \u2014 I recognize it | stakes: Low \u2014 just felt like looking at it / nostalgia | search_sophistication: I type whatever comes to mind and hope for the best | workarounds: Scroll through the timeline until I find it"
+  },
+  {
+    "id": 7,
+    "demographics": {
+      "library_size": "1,000 \u2013 5,000",
+      "tenure": "3\u20135 years",
+      "usage_behavior": "I mostly just back up photos and rarely go back to look at them"
+    },
+    "retrieval_story": {
+      "photo_type": "A photo of a document, receipt, or ID",
+      "what_remembered": "Roughly where it was taken, Roughly when it was taken (month or year)",
+      "how_tried": "Scrolled through the timeline manually, Searched by location on the map, Opened a specific album",
+      "search_outcome": "I got the exact photo I wanted",
+      "how_ended": "Found it, but it took a long time (5+ minutes of searching/scrolling)",
+      "frequency": "About once a month"
+    },
+    "diagnostics": {
+      "top_difficulties": "I can picture the photo but can't describe it in search keywords, Search gives too many results and I can't narrow them down, I don't remember when the photo was taken, I don't remember where the photo was taken, My screenshots and documents are mixed in with real photos",
+      "confirmation_confidence": "Immediately sure \u2014 I recognize it",
+      "stakes": "High stakes \u2014 needed it for something specific (medical, legal, work, insurance)",
+      "biggest_frustration": "No manual input search ",
+      "search_sophistication": "I didn't know Google Photos had a search feature",
+      "experience_story": "I wanted my passport photo taken in a studio approx 2 yrs back tried finding it multiple times but couldn't trace it in album or by timeline ",
+      "workarounds": "Scroll through the timeline until I find it, Give up and move on, Check WhatsApp/Instagram for the same photo, Open a specific album and browse through it, Search on Google Drive instead"
+    },
+    "searchable_text": "library_size: 1,000 \u2013 5,000 | tenure: 3\u20135 years | usage_behavior: I mostly just back up photos and rarely go back to look at them | photo_type: A photo of a document, receipt, or ID | what_remembered: Roughly where it was taken, Roughly when it was taken (month or year) | how_tried: Scrolled through the timeline manually, Searched by location on the map, Opened a specific album | search_outcome: I got the exact photo I wanted | how_ended: Found it, but it took a long time (5+ minutes of searching/scrolling) | frequency: About once a month | top_difficulties: I can picture the photo but can't describe it in search keywords, Search gives too many results and I can't narrow them down, I don't remember when the photo was taken, I don't remember where the photo was taken, My screenshots and documents are mixed in with real photos | confirmation_confidence: Immediately sure \u2014 I recognize it | stakes: High stakes \u2014 needed it for something specific (medical, legal, work, insurance) | biggest_frustration: No manual input search  | search_sophistication: I didn't know Google Photos had a search feature | experience_story: I wanted my passport photo taken in a studio approx 2 yrs back tried finding it multiple times but couldn't trace it in album or by timeline  | workarounds: Scroll through the timeline until I find it, Give up and move on, Check WhatsApp/Instagram for the same photo, Open a specific album and browse through it, Search on Google Drive instead"
+  }
 ]
